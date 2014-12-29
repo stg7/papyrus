@@ -33,7 +33,7 @@ checkResult() {
 CheckCodeConvetions() {
     # code conventions
     logInfo "check code conventions"
-    for i in $(find . -name "*.py")
+    for i in $(find . -name "*.py" | grep -v "py/" | grep -v "gscholar.py")
     do
         logInfo "check $i "
         # ignore just this stupid 80 char long lines rule

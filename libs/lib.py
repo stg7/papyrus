@@ -13,7 +13,7 @@ import pylev
 import nltk
 from nltk.tokenize.punkt import PunktWordTokenizer
 from nltk.corpus import stopwords
-#from nltk.tag import pos_tag
+# from nltk.tag import pos_tag
 
 
 def create_dir_if_not_exists(dir):
@@ -21,6 +21,7 @@ def create_dir_if_not_exists(dir):
         os.stat(dir)
     except:
         os.mkdir(dir)
+
 
 def string_sim(s1, s2):
     """
@@ -42,11 +43,11 @@ def extract_key_words(text):
     try:
         tokens = nltk.word_tokenize("a beautiful girl")
         w = stopwords.words('english')
-        #pos_tag(["a","the"])
+        # pos_tag(["a","the"])
     except:
         nltk.download("punkt")
         nltk.download("stopwords")
-        #nltk.download("maxent_treebank_pos_tagger")
+        # nltk.download("maxent_treebank_pos_tagger")
 
     tokens = nltk.word_tokenize(text)
 
@@ -55,11 +56,12 @@ def extract_key_words(text):
     """
     # build histogram
     histo = {}
-    for t in list(set(tokens) - set(stopwords.words('english')) - set([ x for x in tokens if len(x) <= 3])):
+    for t in list(set(tokens) - set(stopwords.words('english')) - set([x for x in tokens if len(x) <= 3])):
         histo[t] = tokens.count(t)
 
     keywords = sorted(histo.keys(), key=lambda k: histo[k], reverse=True)
     return keywords[0:20]
+
 
 def extract_key_words_test():
     t = """
@@ -95,13 +97,13 @@ def unligaturify(text):
         ("qp", "ȹ"),
         ("st", "ﬆ"),
         ("ſt", "ﬆ"),
-        ]
+    ]
 
     additional_ligatures = [
         ("et", "&"),
         ("SS", "ẞ"),
         ("ss", "ß"),
-        ]
+    ]
 
     digraphs = [
         ("DZ", "Ǳ"),
@@ -116,7 +118,7 @@ def unligaturify(text):
         ("NJ", "Ǌ"),
         ("Nj", "ǋ"),
         ("nj", "ǌ"),
-        ]
+    ]
     for replacement_list in [ligatures, digraphs]:
         for replacement, letters in replacement_list:
             text = text.replace(letters, replacement)

@@ -16,6 +16,3 @@ for m in filter(lambda x: ".zip" in x, os.listdir(os.path.dirname(os.path.realpa
     sys.path.insert(0, os.path.dirname(os.path.realpath(__file__)) + "/libs/" + m)
 
 sys.path.insert(0, os.path.dirname(os.path.realpath(__file__)) + "/libs/")
-
-
-

@@ -64,7 +64,7 @@ def extract_from_pdf(file_name):
         s = unligaturify(str(out.getvalue()))
         out.close()
 
-        tt = " ".join(s.replace("\n"," ").replace("  ", " ").split(" "))
+        tt = " ".join(s.replace("\n", " ").replace("  ", " ").split(" "))
 
         """ extract title """
         tmp = s.split("\n")[0:5]
@@ -72,30 +72,31 @@ def extract_from_pdf(file_name):
         title = " ".join(tmp[0:idx])
         f.close()
 
-        meta = {"title" : title.strip(), "keywords" : extract_key_words(tt)}
+        meta = {"title": title.strip(), "keywords": extract_key_words(tt)}
         return meta
 
     except:
-        return {"title" : "", "keywords" : []}
+        return {"title": "", "keywords": []}
+
 
 def short_year(year):
     return year[-2:]
 
+
 def customizations(record):
     record = bibtexparser.customization.type(record)
-    record["id"] = record["author"].split(",", 1)[0].lower() + short_year(record.get("year","aaaa"))
-    record["id"] = record["id"].replace("{","").replace("}","").replace("\\","").replace("'","")
+    record["id"] = record["author"].split(",", 1)[0].lower() + short_year(record.get("year", "aaaa"))
+    record["id"] = record["id"].replace("{", "").replace("}", "").replace("\\", "").replace("'", "")
     return record
 
 
 def scholar_get(title, db):
     # print(gscholar.query("linked open data", allresults=True))
 
-    #return {"title": title + "abc"}
     if title not in db:
         query = gscholar.query(title)
         if len(query) < 1:
-            return { "title" : "", "authors": [], "year" : "", "bibtex" : "" }
+            return {"title": "", "authors": [], "year": "", "bibtex": ""}
         db[title] = query[0]
         time.sleep(random.randint(0, 10))
 
@@ -107,17 +108,17 @@ def scholar_get(title, db):
     entry = raw_entry.entries[0]
 
     meta["title"] = entry['title'].strip()
-    meta["authors"] = entry['author'].replace(", "," ").split("and")
-    meta["year"] = entry.get('year',"").strip()
+    meta["authors"] = entry['author'].replace(", ", " ").split("and")
+    meta["year"] = entry.get('year', "").strip()
     meta["bibtex"] = bibtexparser.dumps(raw_entry)
 
     return meta
 
 
 def convert_filename(i):
-    disallowed_chars ="!,#+?=)(/&%$§ "
+    disallowed_chars = "!,#+?=)(/&%$§ "
 
-    i = i.replace("{","").replace("}","").replace("\\","").replace("'","")
+    i = i.replace("{", "").replace("}", "").replace("\\", "").replace("'", "")
 
     converted_filename = i.lower()
     for d in disallowed_chars:
@@ -155,8 +156,9 @@ def process_file(file_name, outputdir, db):
             shutil.move(file_name, new_file_name)
             return bib_entry
     else:
-        lError("problem with: " + file_name +", rename manually")
+        lError("problem with: " + file_name + ", rename manually")
     return ""
+
 
 def read_bib_keys(file_name):
     if not os.path.isfile(file_name):
@@ -170,6 +172,7 @@ def read_bib_keys(file_name):
     f.close()
 
     return keys
+
 
 def main(args):
 
@@ -188,7 +191,6 @@ def main(args):
 
     stored_bib_entrie_keys = read_bib_keys(outputdir + "/lit.bib")
 
-
     bib_entries = []
 
     for file_name in filter(lambda x: ".pdf" in x, file_list):
@@ -204,7 +206,7 @@ def main(args):
             i = 0
             for k in stored_bib_entrie_keys:
                 if key in k:
-                    i +=1
+                    i += 1
             new_key += chr(ord("a") + i - 1)
 
         b = b.replace("{" + key + ",", "{" + new_key + ",")
@@ -218,4 +220,3 @@ def main(args):
 
 if __name__ == "__main__":
     main(sys.argv[1:])
-
