@@ -125,5 +125,5 @@ def unligaturify(text):
     return text
 
 if __name__ == "__main__":
-    lError("lib is not a standalone module")
+    print("lib is not a standalone module")
     exit(-1)
