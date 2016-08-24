@@ -11,7 +11,7 @@ import os
 
 import pylev
 import nltk
-from nltk.tokenize.punkt import PunktWordTokenizer
+from nltk.tokenize import wordpunct_tokenize
 from nltk.corpus import stopwords
 # from nltk.tag import pos_tag
 

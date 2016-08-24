@@ -32,15 +32,16 @@ check_tools "python3 pyvenv git"
 
 pyvenv --copies py
 . py/bin/activate
+pip3 install --upgrade pip
 
-pip install pylev
-pip install numpy
-pip install nltk
-pip install bibtexparser
-pip install pdfminer3k
+pip3 install pylev
+pip3 install numpy
+pip3 install nltk
+pip3 install bibtexparser
+pip3 install pdfminer3k
 
 cd py
-git clone git@github.com:venthur/gscholar.git
+git clone https://github.com/venthur/gscholar.git
 cd ..
 cp py/gscholar/gscholar/gscholar.py libs/
 
