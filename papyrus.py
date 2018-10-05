@@ -92,7 +92,7 @@ def customizations(record):
 
 
 def scholar_get(title, db):
-    print(gscholar.query("linked open data", allresults=True))
+    # print(gscholar.query("linked open data", allresults=True))
 
     if title not in db:
         query = gscholar.query(title)

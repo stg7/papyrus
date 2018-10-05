@@ -28,9 +28,9 @@ if [ -d "py" ]; then
     exit 1
 fi
 
-check_tools "python3 pyvenv git"
+check_tools "python3 git"
 
-pyvenv --copies py
+python3.6 -m venv --copies py
 . py/bin/activate
 pip3 install --upgrade pip
 
@@ -39,11 +39,8 @@ pip3 install numpy
 pip3 install nltk
 pip3 install bibtexparser
 pip3 install pdfminer3k
+pip3 install gscholar
 
-cd py
-git clone https://github.com/venthur/gscholar.git
-cd ..
-cp py/gscholar/gscholar/gscholar.py libs/
 
 logInfo "done."
 

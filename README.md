@@ -1,3 +1,6 @@
+deprecated, gscholar does not work anymore
+(but is required to get the bibtex entries and the corrected author names/titles/years)
+
 papyrus
 =======
 
